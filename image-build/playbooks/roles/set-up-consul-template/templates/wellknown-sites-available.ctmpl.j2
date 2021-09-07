@@ -1,0 +1,31 @@
+{{range ls "service/wellknown"}}
+{{$domain := printf .Key}}
+server {
+    listen 80;
+    server_name {{.Key}};
+    
+    root /var/www;
+    index index.html;
+    
+    default_type application/json;
+
+    # Redirects
+
+    {{range ls (print "service/wellknown/" $domain "/redirect")}}
+    location {{.Key}} {
+        return 301 {{.Value}};
+    }
+    {{ end }}
+
+
+    # JSON payloads
+
+    {{range ls (print "service/wellknown/" $domain "/json")}}
+    location {{.Key}} {
+        return 200 {{.Value}};
+        add_header access-control-allow-origin *;
+        add_header content-type application/json;
+    }
+    {{ end }}
+}
+{{ end }}
