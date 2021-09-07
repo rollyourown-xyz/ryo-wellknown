@@ -18,6 +18,11 @@ variable "version" {
   type        = string
 }
 
+# Specify the consul-template version to use in the image build
+variable "consul_template_version" {
+  description = "Mandatory: The consul-template version to use in the image build."
+  type        = string
+}
 
 ## Local configuration variables
 ##
@@ -44,7 +49,7 @@ locals {
 
   build_inventory_file = "${abspath(path.root)}/playbooks/inventory.yml"
   build_playbook_file  = "${abspath(path.root)}/playbooks/provision-wellknown.yml"
-  build_extra_vars     = "host_id=${var.host_id} module_id=${local.module_id}"
+  build_extra_vars     = "host_id=${var.host_id} module_id=${local.module_id} consul_template_version=${var.consul_template_version}"
 }
 
 ## Computed local variables

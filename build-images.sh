@@ -11,6 +11,7 @@ helpMessage()
    echo "Flags:"
    echo -e "-n hostname \t\t\t(Mandatory) Name of the host for which to build images"
    echo -e "-v version \t\t\t(Mandatory) Version stamp to apply to images, e.g. 20210101-1"
+   echo -e "-c consul_template_version \t(Optional) Override default consul-template version to use for the coturn image, e.g. 0.27.0 (default)"
    echo -e "-h \t\t\t\tPrint this help message"
    echo ""
    exit 1
@@ -23,20 +24,21 @@ errorMessage()
    exit 1
 }
 
-# Default software versions
-# xyz_version='42'
+# Default consul-template version
+consul_template_version='0.27.0'
 
-while getopts n:v:h flag
+while getopts n:c:v:h flag
 do
     case "${flag}" in
         n) hostname=${OPTARG};;
         v) version=${OPTARG};;
+        c) consul_template_version=${OPTARG};;
         h) helpMessage ;;
         ?) errorMessage ;;
     esac
 done
 
-if [ -z "$hostname" ] || [ -z "$version" ]
+if [ -z "$hostname" ] || [ -z "$version" ] || [ -z "$consul_template_version" ]
 then
    errorMessage
 fi
@@ -44,9 +46,9 @@ fi
 
 echo "Building images for ryo-wellknown module on "$hostname""
 echo ""
-echo "Building wellknown server image"
+echo "Building Wellknown server image"
 echo ""
-echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"version="$version"\" "$SCRIPT_DIR"/image-build/wellknown.pkr.hcl"
+echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"version="$version"\" -var \"consul_template_version="$consul_template_version"\" "$SCRIPT_DIR"/image-build/wellknown.pkr.hcl"
 echo ""
-packer build -var "host_id="$hostname"" -var "version="$version"" "$SCRIPT_DIR"/image-build/wellknown.pkr.hcl
+packer build -var "host_id="$hostname"" -var "version="$version"" -var "consul_template_version="$consul_template_version"" "$SCRIPT_DIR"/image-build/wellknown.pkr.hcl
 echo ""
