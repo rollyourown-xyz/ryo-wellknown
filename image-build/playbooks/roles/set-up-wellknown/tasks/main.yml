@@ -1,0 +1,13 @@
+---
+# Note: nginx configuration is generated dynamically by consul-template
+
+# Copy wellknown-services consul service configuration file
+#
+- name: Copy wellknown-services consul service configuration file
+  copy:
+    mode: 0640
+    owner: consul
+    group: consul
+    dest: /etc/consul.d/wellknown-services.hcl
+    src: wellknown-services.hcl
+    force: yes
