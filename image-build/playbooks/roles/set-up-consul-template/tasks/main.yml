@@ -33,28 +33,40 @@
     force: yes
 
 
-# TODO Copy consul-template template file for provisioning ryo-service-proxy for wellknown
+# Copy script to reload nginx configuration
 #
-# - name: Copy consul-template template file for provisioning ryo-service-proxy for wellknown
-#   copy:
-#     mode: 0644
-#     owner: root
-#     group: root
-#     dest: /etc/consul-template/configure-service-proxy.sh.ctmpl
-#     src: configure-service-proxy.sh.ctmpl
-#     force: yes
+- name: Copy script to reload nginx configuration
+  copy:
+    mode: 0755
+    owner: root
+    group: root
+    dest: /usr/local/bin/load-nginx.sh
+    src: load-nginx.sh
+    force: yes
 
 
-# CHECK Copy script to execute provisioning of ryo-service-proxy for wellknown
+# Copy consul-template template file for provisioning ryo-service-proxy for wellknown
 #
-# - name: Copy script to execute provisioning of ryo-service-proxy for wellknown
-#   copy:
-#     mode: 0755
-#     owner: root
-#     group: root
-#     dest: /usr/local/bin/execute-configure-service-proxy.sh
-#     src: execute-configure-service-proxy.sh
-#     force: yes
+- name: Copy consul-template template file for provisioning ryo-service-proxy for wellknown
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/consul-template/configure-service-proxy.sh.ctmpl
+    src: configure-service-proxy.sh.ctmpl
+    force: yes
+
+
+# Copy script to execute provisioning of ryo-service-proxy for wellknown
+#
+- name: Copy script to execute provisioning of ryo-service-proxy for wellknown
+  copy:
+    mode: 0755
+    owner: root
+    group: root
+    dest: /usr/local/bin/execute-configure-service-proxy.sh
+    src: execute-configure-service-proxy.sh
+    force: yes
 
 
 # Copy consul-template service definition

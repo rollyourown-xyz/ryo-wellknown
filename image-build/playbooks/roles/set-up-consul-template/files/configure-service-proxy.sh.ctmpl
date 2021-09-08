@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Provision haproxy backend for wellknown server
+consul kv put service/haproxy/backends/no-ssl/wellknown
+
+# Clear all haproxy acls and use-backend rules related to the well-known server
+consul kv delete -recurse service/haproxy/acl/wellknown-
+consul kv delete -recurse service/haproxy/use-backend/wellknown-
+
+# Provision haproxy acls and use-backend rules for well-known redirect locations
+{{ range ls "service/wellknown/domains" }}{{ $domain := printf .Key }}{{ range $aclname, $wellknown := tree (print "service/wellknown/redirects/" $domain) | explode }}
+consul kv put {{ print "service/haproxy/acl/wellknown-" ( $domain | replaceAll "." "-" ) "-" $aclname "/host" }} {{ print $domain }}
+consul kv put {{ print "service/haproxy/acl/wellknown-" ( $domain | replaceAll "." "-" ) "-" $aclname "/path" }} {{ key ( print "service/wellknown/redirects/" $domain "/" $aclname "/location") }}
+consul kv put {{ print "service/haproxy/use-backend/wellknown-" ( $domain | replaceAll "." "-" ) "-" $aclname }} wellknown
+{{ end }}{{ end }}
+
+# Provision haproxy acls and use-backend rules for well-known json locations
+{{ range ls "service/wellknown/domains" }}{{ $domain := printf .Key }}{{ range $aclname, $wellknown := tree (print "service/wellknown/json/" $domain) | explode }}
+consul kv put {{ print "service/haproxy/acl/wellknown-" ( $domain | replaceAll "." "-" ) "-" $aclname "/host" }} {{ print $domain }}
+consul kv put {{ print "service/haproxy/acl/wellknown-" ( $domain | replaceAll "." "-" ) "-" $aclname "/path" }} {{ key ( print "service/wellknown/json/" $domain "/" $aclname "/location") }}
+consul kv put {{ print "service/haproxy/use-backend/wellknown-" ( $domain | replaceAll "." "-" ) "-" $aclname }} wellknown
+{{ end }}{{ end }}
