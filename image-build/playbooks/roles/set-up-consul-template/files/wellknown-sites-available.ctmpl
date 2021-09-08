@@ -1,6 +1,6 @@
-{{range ls "service/wellknown/domains"}}{{$domain := printf .Key}}server {
+{{ range ls "service/wellknown/domains" }}{{ $domain := printf .Key }}server {
     listen 80;
-    server_name {{.Key}};
+    server_name {{ .Key }};
     
     root /var/www;
     index index.html;
@@ -8,20 +8,20 @@
     default_type application/json;
 
     # Redirects
-    {{range tree (print "service/wellknown/redirects/" $domain) | explode}}
+    {{ range tree (print "service/wellknown/redirects/" $domain) | explode }}
     location {{ .location }} {
         return 301 {{ .path }};
     }
-    {{end}}
+    {{ end }}
 
     # JSON payloads
-    {{range tree (print "service/wellknown/json/" $domain) | explode}}
+    {{ range tree (print "service/wellknown/json/" $domain) | explode }}
     location {{ .location }} {
         return 200 {{ .payload }};
         add_header access-control-allow-origin *;
         add_header content-type application/json;
     }
-    {{end}}
+    {{ end }}
 }
 
 {{ end }}
