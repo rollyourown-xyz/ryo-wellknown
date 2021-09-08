@@ -12,20 +12,26 @@ server {
     # Redirects
 
     {{range ls (print "service/wellknown/" $domain "/redirect")}}
-    location {{.Key}} {
-        return 301 {{.Value}};
+    {{$name := printf .Key}}{{$redirectlocation := print "service/wellknown/" $domain "/redirect/" $name "/location"}}{{$redirectpath := print "service/wellknown/" $domain "/redirect/" $name "/path"}}
+    {{if keyExists $redirectlocation}}{{if keyExists $redirectpath}}
+    location {{ key $redirectlocation }} {
+        return 301 {{ key $redirectpath }};
     }
+    {{ end }}{{ end }}
     {{ end }}
 
 
     # JSON payloads
 
     {{range ls (print "service/wellknown/" $domain "/json")}}
-    location {{.Key}} {
-        return 200 {{.Value}};
+    {{$name := printf .Key}}{{$jsonlocation := print "service/wellknown/" $domain "/json/" $name "/location"}}{{$jsonpayload := print "service/wellknown/" $domain "/json/" $name "/payload"}}
+    {{if keyExists $jsonlocation}}{{if keyExists $jsonpayload}}
+    location {{ key $jsonlocation }} {
+        return 200 {{ key $jsonpayload }};
         add_header access-control-allow-origin *;
         add_header content-type application/json;
     }
+    {{ end }}{{ end }}
     {{ end }}
 }
 {{ end }}
