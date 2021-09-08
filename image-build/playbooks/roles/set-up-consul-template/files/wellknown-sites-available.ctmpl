@@ -1,6 +1,4 @@
-{{range ls "service/wellknown"}}
-{{$domain := printf .Key}}
-server {
+{{range ls "service/wellknown/domains"}}{{$domain := printf .Key}}server {
     listen 80;
     server_name {{.Key}};
     
@@ -10,28 +8,20 @@ server {
     default_type application/json;
 
     # Redirects
-
-    {{range ls (print "service/wellknown/" $domain "/redirect")}}
-    {{$name := printf .Key}}{{$redirectlocation := print "service/wellknown/" $domain "/redirect/" $name "/location"}}{{$redirectpath := print "service/wellknown/" $domain "/redirect/" $name "/path"}}
-    {{if keyExists $redirectlocation}}{{if keyExists $redirectpath}}
-    location {{ key $redirectlocation }} {
-        return 301 {{ key $redirectpath }};
+    {{range tree (print "service/wellknown/redirects/" $domain) | explode}}
+    location {{ .location }} {
+        return 301 {{ .path }};
     }
-    {{ end }}{{ end }}
-    {{ end }}
-
+    {{end}}
 
     # JSON payloads
-
-    {{range ls (print "service/wellknown/" $domain "/json")}}
-    {{$name := printf .Key}}{{$jsonlocation := print "service/wellknown/" $domain "/json/" $name "/location"}}{{$jsonpayload := print "service/wellknown/" $domain "/json/" $name "/payload"}}
-    {{if keyExists $jsonlocation}}{{if keyExists $jsonpayload}}
-    location {{ key $jsonlocation }} {
-        return 200 {{ key $jsonpayload }};
+    {{range tree (print "service/wellknown/json/" $domain) | explode}}
+    location {{ .location }} {
+        return 200 {{ .payload }};
         add_header access-control-allow-origin *;
         add_header content-type application/json;
     }
-    {{ end }}{{ end }}
-    {{ end }}
+    {{end}}
 }
+
 {{ end }}
