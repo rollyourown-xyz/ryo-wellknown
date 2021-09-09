@@ -10,7 +10,7 @@
     # Redirects
     {{ range tree (print "service/wellknown/redirects/" $domain) | explode }}
     location {{ .location }} {
-        return 301 {{ .path }};
+        return 301 {{ .url }};
     }
     {{ end }}
 
