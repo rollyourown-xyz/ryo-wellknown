@@ -31,11 +31,3 @@ locals {
   lxd_host_public_ipv4_address  = yamldecode(file(local.host_configuration))["host_public_ip"]
   lxd_host_network_part         = yamldecode(file(local.host_configuration))["lxd_host_network_part"]
 }
-
-# Variables from ryo-service-proxy module remote state
-data "terraform_remote_state" "ryo-service-proxy" {
-  backend = "local"
-  config = {
-    path = join("", ["${abspath(path.root)}/../../ryo-service-proxy/module-deployment/terraform.tfstate.d/", var.host_id, "/terraform.tfstate"])
-  }
-}
