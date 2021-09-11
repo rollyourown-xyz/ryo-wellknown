@@ -14,15 +14,15 @@ consul {
 }
 
 # Template for dynamic nginx configuration based on consul key-values
-#template {
-#  source = "/etc/consul-template/wellknown-sites-available.ctmpl"
-#  destination = "/etc/nginx/sites-available/wellknown"
-#  command = "/usr/local/bin/load-nginx.sh"
-#}
+template {
+  source = "/etc/consul-template/wellknown-sites-available.ctmpl"
+  destination = "/etc/nginx/sites-available/wellknown"
+  command = "/usr/local/bin/load-nginx.sh"
+}
 
 # Template for provisioning ryo-service-proxy for wellknown
-#template {
-#  source = "/etc/consul-template/configure-service-proxy.sh.ctmpl"
-#  destination = "/usr/local/bin/configure-service-proxy.sh"
-#  command = "/usr/local/bin/execute-configure-service-proxy.sh"
-#}
+template {
+  source = "/etc/consul-template/configure-service-proxy.sh.ctmpl"
+  destination = "/usr/local/bin/configure-service-proxy.sh"
+  command = "/usr/local/bin/execute-configure-service-proxy.sh"
+}
