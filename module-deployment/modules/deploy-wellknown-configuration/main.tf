@@ -24,6 +24,7 @@ resource "consul_keys" "wellknown_json_domains" {
 
   for_each = var.wellknown_json_rules
   
+  # The wellknown domain is the key. The value is empty.
   key {
     path   = join("", [ "service/wellknown/domains/", each.value["wellknown_domain"] ])
     value  = ""
