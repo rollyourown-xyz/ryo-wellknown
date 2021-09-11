@@ -7,6 +7,7 @@ variable "wellknown_redirect_rules" {
     wellknown_path         = string
     wellknown_redirect_url = string
   }))
+  default = {}
 }
 
 variable "wellknown_json_rules" {
@@ -16,4 +17,5 @@ variable "wellknown_json_rules" {
     wellknown_path         = string
     wellknown_json_payload = string
   }))
+  default = {}
 }
