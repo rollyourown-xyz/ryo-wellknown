@@ -12,9 +12,10 @@ resource "consul_keys" "wellknown_redirect_domains" {
 
   for_each = var.wellknown_redirect_rules
   
+  # The wellknown domain is the key. The value is empty.
   key {
-    path   = "service/wellknown/domains"
-    value  = each.value["wellknown_domain"]
+    path   = join("", [ "service/wellknown/domains/", each.value["wellknown_domain"] ])
+    value  = ""
     delete = true
   }
 }
@@ -24,8 +25,8 @@ resource "consul_keys" "wellknown_json_domains" {
   for_each = var.wellknown_json_rules
   
   key {
-    path   = "service/wellknown/domains"
-    value  = each.value["wellknown_domain"]
+    path   = join("", [ "service/wellknown/domains/", each.value["wellknown_domain"] ])
+    value  = ""
     delete = true
   }
 }
