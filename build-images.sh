@@ -25,7 +25,7 @@ errorMessage()
 }
 
 # Default consul-template version
-consul_template_version='0.27.0'
+consul_template_version='0.27.2'
 
 while getopts n:c:v:h flag
 do
