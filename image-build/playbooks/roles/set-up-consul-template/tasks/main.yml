@@ -45,27 +45,27 @@
     force: yes
 
 
-# Copy consul-template template file for provisioning ryo-service-proxy for wellknown
+# Copy consul-template template file for provisioning ryo-ingress-proxy for wellknown
 #
-- name: Copy consul-template template file for provisioning ryo-service-proxy for wellknown
+- name: Copy consul-template template file for provisioning ryo-ingress-proxy for wellknown
   copy:
     mode: 0644
     owner: root
     group: root
-    dest: /etc/consul-template/configure-service-proxy.sh.ctmpl
-    src: configure-service-proxy.sh.ctmpl
+    dest: /etc/consul-template/configure-ingress-proxy.sh.ctmpl
+    src: configure-ingress-proxy.sh.ctmpl
     force: yes
 
 
-# Copy script to execute provisioning of ryo-service-proxy for wellknown
+# Copy script to execute provisioning of ryo-ingress-proxy for wellknown
 #
-- name: Copy script to execute provisioning of ryo-service-proxy for wellknown
+- name: Copy script to execute provisioning of ryo-ingress-proxy for wellknown
   copy:
     mode: 0755
     owner: root
     group: root
-    dest: /usr/local/bin/execute-configure-service-proxy.sh
-    src: execute-configure-service-proxy.sh
+    dest: /usr/local/bin/execute-configure-ingress-proxy.sh
+    src: execute-configure-ingress-proxy.sh
     force: yes
 
 
