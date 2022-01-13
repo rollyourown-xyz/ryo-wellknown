@@ -14,9 +14,17 @@
     state: directory
     mode: '0755'
 
+
+- name: Create a directory to mount in wellknown containers
+  file:
+    path: "/var/containers/{{ module_id }}/wellknown"
+    state: directory
+    mode: '0755'
+
+
 # Example
 # - name: Create a directory for <ABC> container mounts
 #   file:
-#     path: "/var/containers/{{ module_id }}/<ABC>"
+#     path: "/var/containers/{{ module_id }}/wellknown/<ABC>"
 #     state: directory
 #     mode: '0755'
