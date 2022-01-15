@@ -37,11 +37,12 @@ then
 fi
 
 # Get Module ID from configuration file
-MODULE_ID="$(yq eval '.module_id' "$SCRIPT_DIR"/configuration/configuration.yml)"
+MODULE_ID="$(yq eval '.module_id' "$SCRIPT_DIR"/../configuration/configuration.yml)"
 
 
-# Info: no persistent storage
-#############################
+# Stop module containers
+########################
 
 echo ""
-echo ""$MODULE_ID" on "$hostname" has no persistent storage to back up"
+echo "Stop "$MODULE_ID" containers on "$hostname""
+lxc stop "$hostname":wellknown

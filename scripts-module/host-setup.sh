@@ -1,8 +1,5 @@
 #!/bin/bash
 
-## There is currently no host setup necessary for the ryo-wellknown module. The following is not
-## needed, but included for consistency with all other modules and in case of later changes
-
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 helpMessage()
@@ -40,16 +37,16 @@ then
 fi
 
 # Get Module ID from configuration file
-#MODULE_ID="$(yq eval '.module_id' "$SCRIPT_DIR"/configuration/configuration.yml)"
+MODULE_ID="$(yq eval '.module_id' "$SCRIPT_DIR"/../configuration/configuration.yml)"
 
 # Module-specific host setup for "$MODULE_ID"
-# if [ -f ""$SCRIPT_DIR"/configuration/"$hostname"_playbooks_executed" ]
-# then
-#    echo "Host setup for "$MODULE_ID" module has already been done on "$hostname""
-#    echo ""
-# else
-#    echo "Executing module-specific host setup playbooks for "$MODULE_ID" on "$hostname""
-#    echo ""
-#    ansible-playbook -i "$SCRIPT_DIR"/../ryo-host/configuration/inventory_"$hostname" "$SCRIPT_DIR"/host-setup/main.yml --extra-vars "host_id="$hostname""
-#    touch "$SCRIPT_DIR"/configuration/"$hostname"_playbooks_executed
-# fi
+if [ -f ""$SCRIPT_DIR"/../configuration/"$hostname"_playbooks_executed" ]
+then
+   echo "Host setup for "$MODULE_ID" module has already been done on "$hostname""
+   echo ""
+else
+   echo "Executing module-specific host setup playbooks for "$MODULE_ID" on "$hostname""
+   echo ""
+   ansible-playbook -i "$SCRIPT_DIR"/../../ryo-host/configuration/inventory_"$hostname" "$SCRIPT_DIR"/../host-setup/main.yml --extra-vars "host_id="$hostname""
+   touch "$SCRIPT_DIR"/../configuration/"$hostname"_playbooks_executed
+fi
