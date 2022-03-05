@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 # Provision ingress-proxy backend for wellknown server
 consul kv put service/haproxy/backends/no-ssl/wellknown

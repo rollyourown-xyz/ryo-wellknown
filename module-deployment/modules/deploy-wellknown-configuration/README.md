@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Deploy key-value pairs to consul KV store for providing wellknown server configuration
 
 This module deploys key-value pairs to consul KV store for configuring -well-known redirects or JSON payloads for the wellknwon service. Configuration is specified by input variables:
