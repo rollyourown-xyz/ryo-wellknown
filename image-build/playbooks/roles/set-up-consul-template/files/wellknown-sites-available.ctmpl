@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 {{ range ls "service/wellknown/domains" }}{{ $domain := printf .Key }}server {
+    listen [::]:80;
     listen 80;
     server_name {{ .Key }};
     
