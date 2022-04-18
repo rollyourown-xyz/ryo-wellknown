@@ -11,5 +11,5 @@
     owner: root
     group: root
     dest: /etc/nftables.conf
-    src: nftables.conf
+    src: nftables.conf.j2
     force: yes
