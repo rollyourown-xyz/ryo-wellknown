@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Roll Your Own Well-known URI Server
 
-Deploy a well-known URI server using Ansible, Packer and Terraform.
+This is a [rollyourown module](https://rollyourown/rollyourown/project_modules/) to deploy a [well-known URI](https://en.wikipedia.org/wiki/Well-known_URI) server using Ansible, Packer and Terraform.
 
 ## Module Summary
 
