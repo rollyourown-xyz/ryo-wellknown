@@ -39,6 +39,7 @@ do
   case "${flag}" in
     n) hostname=${OPTARG};;
     v) version=${OPTARG};;
+    b) remote_build=${OPTARG};;
     h) helpMessage ;;
     ?) errorMessage ;;
   esac
